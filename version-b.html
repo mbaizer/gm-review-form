@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GM Performance Review - Carolina Ale House (Version B - Detailed)</title>
+<style>
+  @page { size: letter; margin: 0.5in; }
+  @media print {
+    body { margin: 0; padding: 0.4in; }
+    .page-break { page-break-before: always; }
+    input[type="text"], input[type="number"], textarea {
+      border: none !important;
+      background: none !important;
+      box-shadow: none !important;
+    }
+    .no-print { display: none; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 9pt;
+    color: #1a1a1a;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 0.5in;
+    line-height: 1.3;
+  }
+  .title-bar { display: flex; align-items: center; margin-bottom: 10px; }
+  .title-bar img { height: 70px; margin-right: 20px; flex-shrink: 0; }
+  .title-bar h1 { flex: 1; text-align: center; font-size: 14pt; margin: 0; color: #003366; }
+
+  /* Header */
+  .header-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+  .header-table td { padding: 3px 6px; font-size: 9pt; border: 1px solid #bfbfbf; }
+  .header-table .label { font-weight: bold; background: #e8eef4; white-space: nowrap; width: 13%; }
+  .header-table input { width: 100%; border: none; font-size: 9pt; padding: 1px; font-family: inherit; }
+
+  /* Legend */
+  .legend { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+  .legend td { border: 1px solid #bfbfbf; padding: 3px 6px; text-align: center; font-size: 8pt; }
+  .legend .hdr { background: #003366; color: white; font-weight: bold; font-size: 9pt; }
+  .legend .num { font-weight: bold; font-size: 10pt; }
+  .legend .lbl { font-weight: bold; }
+
+  /* Scoring table with comments */
+  .grid { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+  .grid th, .grid td { border: 1px solid #bfbfbf; padding: 4px 6px; font-size: 8.5pt; }
+  .grid .section-hdr { background: #003366; color: white; font-weight: bold; font-size: 10pt; text-align: center; padding: 4px; }
+  .grid .col-name { width: 15%; font-weight: bold; vertical-align: top; }
+  .grid .col-desc { width: 28%; font-size: 8pt; color: #444; vertical-align: top; }
+  .grid .col-score { width: 7%; text-align: center; vertical-align: top; }
+  .grid .col-comments { width: 30%; vertical-align: top; }
+  .grid .col-score input[type="number"] {
+    width: 32px; height: 22px; text-align: center; font-size: 10pt; font-weight: bold;
+    border: 1px solid #ccc; border-radius: 2px; font-family: inherit;
+    background: #fffff0;
+  }
+  .grid .col-score input:focus { outline: 2px solid #003366; background: #fff; }
+  .grid .col-comments textarea {
+    width: 100%; min-height: 36px; border: none; font-size: 8pt; font-family: inherit;
+    resize: vertical; padding: 2px;
+  }
+  .grid .score-hdr { background: #e8eef4; font-weight: bold; text-align: center; }
+  .grid .subtotal td { background: #e8eef4; font-weight: bold; font-size: 9pt; }
+  .grid .kpi { font-size: 7pt; color: #666; line-height: 1.15; margin-top: 1px; }
+
+  /* Summary */
+  .summary { width: 50%; border-collapse: collapse; margin: 8px auto 12px auto; }
+  .summary td { border: 1px solid #bfbfbf; padding: 4px 10px; font-size: 9pt; }
+  .summary .lbl { font-weight: bold; width: 62%; }
+  .summary .val { text-align: center; width: 38%; font-weight: bold; }
+  .summary .overall { background: #e8eef4; }
+
+  /* Balance */
+  .balance { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+  .balance td, .balance th { border: 1px solid #bfbfbf; padding: 4px 8px; font-size: 9pt; vertical-align: top; }
+  .balance th { background: #e8eef4; font-weight: bold; text-align: center; }
+  .balance th.mid { background: #003366; color: white; font-size: 10pt; }
+  .balance input { width: 100%; border: none; font-size: 9pt; font-family: inherit; }
+
+  /* Goals */
+  .goals-tbl { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+  .goals-tbl td { border: 1px solid #bfbfbf; padding: 4px 6px; font-size: 9pt; }
+  .goals-tbl .gnum { width: 5%; text-align: center; font-weight: bold; }
+  .goals-tbl input { width: 100%; border: none; font-size: 9pt; font-family: inherit; }
+
+  /* Narrative */
+  .narr-label { font-weight: bold; font-size: 9pt; color: #003366; margin: 8px 0 3px 0; }
+  textarea.narr {
+    width: 100%; min-height: 100px; border: 1px solid #bfbfbf; padding: 6px;
+    font-family: inherit; font-size: 9pt; resize: vertical; margin-bottom: 8px;
+  }
+
+  /* Signatures */
+  .sig-table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+  .sig-table td { padding: 4px 8px; font-size: 9pt; vertical-align: bottom; }
+  .sig-line { border-bottom: 1px solid #333; height: 28px; }
+
+  .auto-avg { font-weight: bold; color: #003366; }
+</style>
+</head>
+<body>
+
+<div class="title-bar">
+  <img src="LM-Logo-Color_HeartforHospitality.jpg" alt="LM Restaurants">
+  <h1>General Manager Performance Review</h1>
+</div>
+
+<!-- HEADER -->
+<table class="header-table">
+  <tr>
+    <td class="label">Employee Name</td><td><input type="text"></td>
+    <td class="label">Position</td><td><input type="text" value="General Manager"></td>
+    <td class="label">Review Date</td><td><input type="text"></td>
+  </tr>
+  <tr>
+    <td class="label">Location</td><td><input type="text"></td>
+    <td class="label">Reviewer</td><td><input type="text"></td>
+    <td class="label">Last Review</td><td><input type="text"></td>
+  </tr>
+</table>
+
+<!-- LEGEND -->
+<table class="legend">
+  <tr><td colspan="5" class="hdr">Rating Scale</td></tr>
+  <tr><td class="num">5</td><td class="num">4</td><td class="num">3</td><td class="num">2</td><td class="num">1</td></tr>
+  <tr><td class="lbl">Exceptional</td><td class="lbl">Exceeds Expectations</td><td class="lbl">Meets Expectations</td><td class="lbl">Partially Meets</td><td class="lbl">Does Not Meet</td></tr>
+  <tr>
+    <td>Top performer; sets the standard others aspire to</td>
+    <td>Consistently performs above expectation</td>
+    <td>Solid contributor; consistently meets established goals</td>
+    <td>Inconsistent performer or new to role (&lt;6 months)</td>
+    <td>Performs below expectation; does not meet routine demands</td>
+  </tr>
+</table>
+
+<!-- ======================================================= -->
+<!-- SECTION 1: BUSINESS RESULTS -->
+<!-- ======================================================= -->
+<table class="grid" id="sec-business">
+  <tr><td colspan="4" class="section-hdr">BUSINESS RESULTS</td></tr>
+  <tr>
+    <th class="col-name">Category</th>
+    <th class="col-desc">Description / KPI Thresholds</th>
+    <th class="score-hdr">Score</th>
+    <th class="score-hdr" style="width:30%;">Manager Comments</th>
+  </tr>
+  <tr>
+    <td class="col-name">Comp Net Sales</td>
+    <td class="col-desc">Year-over-year comp sales performance<div class="kpi">(1) &lt;-2.81% (2) -2.8% to -1.31% (3) -1.3% to 1.5% (4) 1.51% to 3.5% (5) &gt;3.5%</div></td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="business"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">AvT Target</td>
+    <td class="col-desc">Actual vs. Theoretical cost variance<div class="kpi">(1) &gt;-2.0 or &lt;-0.75 (2) -2.0 to -1.51 (3) -1.5 to -1.26 (4) -1.25 to -0.90 (5) -0.89 to -0.75</div></td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="business"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">Flow Through %</td>
+    <td class="col-desc">Incremental revenue conversion to profit<div class="kpi">(1) &lt;50% (2) 50%-60% (3) 60.1%-75.5% (4) 75.6%-90% (5) &gt;90%</div></td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="business"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">Guest Satisfaction</td>
+    <td class="col-desc">Public reviews average score<div class="kpi">(1) &lt;3.8 (2) 3.8-4.09 (3) 4.1-4.29 (4) 4.3-4.49 (5) 4.5+</div></td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="business"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">Health &amp; Sanitation</td>
+    <td class="col-desc">Health inspection scores<div class="kpi">(1) &le;93 (2) 93.1-96.5 (3) 96.6-97.9 (4) 98.0-99.4 (5) 99.5-100</div></td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="business"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr class="subtotal">
+    <td colspan="2" style="text-align:right;"><span id="business-total">0</span> / <span id="business-count">5</span> =</td>
+    <td style="text-align:center;" class="auto-avg" id="business-avg">0.00</td>
+    <td></td>
+  </tr>
+</table>
+
+<!-- ======================================================= -->
+<!-- SECTION 2: OPERATIONAL EXECUTION -->
+<!-- ======================================================= -->
+<table class="grid" id="sec-ops">
+  <tr><td colspan="4" class="section-hdr">OPERATIONAL EXECUTION</td></tr>
+  <tr>
+    <th class="col-name">Category</th>
+    <th class="col-desc">Description</th>
+    <th class="score-hdr">Score</th>
+    <th class="score-hdr" style="width:30%;">Manager Comments</th>
+  </tr>
+  <tr>
+    <td class="col-name">Manages Processes</td>
+    <td class="col-desc">Organizes people and activities; separates and combines tasks into efficient workflow; simplifies complex processes; gets more out of fewer resources</td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="ops"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">Systems &amp; Controls</td>
+    <td class="col-desc">Inventory accuracy, production systems, line checks, security protocols, P&amp;L accuracy, and administrative compliance</td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="ops"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">Cleanliness &amp; Facility</td>
+    <td class="col-desc">Building condition, R&amp;M follow-through, FOH/BOH cleanliness and organization standards</td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="ops"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">MBWA &amp; Shift Mechanics</td>
+    <td class="col-desc">Daily routine execution, floor presence, managing the shift, pre-shift preparation</td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="ops"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">Sets &amp; Manages Priorities</td>
+    <td class="col-desc">Spends time on what matters most; senses what helps or hinders goals; eliminates roadblocks; creates focus for the team</td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="ops"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr class="subtotal">
+    <td colspan="2" style="text-align:right;"><span id="ops-total">0</span> / <span id="ops-count">5</span> =</td>
+    <td style="text-align:center;" class="auto-avg" id="ops-avg">0.00</td>
+    <td></td>
+  </tr>
+</table>
+
+<!-- ======================================================= -->
+<!-- SECTION 3: LEADERSHIP & PEOPLE DEVELOPMENT -->
+<!-- ======================================================= -->
+<table class="grid" id="sec-lead">
+  <tr><td colspan="4" class="section-hdr">LEADERSHIP &amp; PEOPLE DEVELOPMENT</td></tr>
+  <tr>
+    <th class="col-name">Category</th>
+    <th class="col-desc">Description</th>
+    <th class="score-hdr">Score</th>
+    <th class="score-hdr" style="width:30%;">Manager Comments</th>
+  </tr>
+  <tr>
+    <td class="col-name">Builds Effective Teams</td>
+    <td class="col-desc">Creates strong morale and team spirit; fosters open dialogue; builds a feeling of belonging; team retention and engagement</td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="lead"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">Develops Others</td>
+    <td class="col-desc">Provides skill-stretching assignments; holds development discussions; aware of career goals; constructs and executes development plans</td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="lead"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">Recruiting &amp; Staffing</td>
+    <td class="col-desc">Selection quality, staffing levels, turnover management, trainer program development, leadership pipeline</td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="lead"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">Counseling &amp; Accountability</td>
+    <td class="col-desc">Consistency, delivery, timing of coaching and corrective action; holding managers and team to standards</td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="lead"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">Communication</td>
+    <td class="col-desc">Shift meetings, manager meetings, peer collaboration, upward communication quality</td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="lead"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">Morale &amp; Culture</td>
+    <td class="col-desc">Team member relations, conflict resolution, workplace environment, living Carolina Hospitality values daily</td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="lead"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr class="subtotal">
+    <td colspan="2" style="text-align:right;"><span id="lead-total">0</span> / <span id="lead-count">6</span> =</td>
+    <td style="text-align:center;" class="auto-avg" id="lead-avg">0.00</td>
+    <td></td>
+  </tr>
+</table>
+
+<!-- ======================================================= -->
+<!-- SECTION 4: GUEST FOCUS & SALES BUILDING -->
+<!-- ======================================================= -->
+<table class="grid" id="sec-guest">
+  <tr><td colspan="4" class="section-hdr">GUEST FOCUS &amp; SALES BUILDING</td></tr>
+  <tr>
+    <th class="col-name">Category</th>
+    <th class="col-desc">Description</th>
+    <th class="score-hdr">Score</th>
+    <th class="score-hdr" style="width:30%;">Manager Comments</th>
+  </tr>
+  <tr>
+    <td class="col-name">Guest Engagement</td>
+    <td class="col-desc">Dedicated to Carolina Hospitality approach; builds guest relationships; gets first-hand feedback and acts on it; MBWA floor presence</td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="guest"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">Drives for Results</td>
+    <td class="col-desc">Can be counted on to exceed goals; knows business targets (sales, labor, PACE) and drives to achieve them; thinks strategically to grow sales and manage expenses</td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="guest"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td class="col-name">Local Sales Building</td>
+    <td class="col-desc">LSM execution, private events conversion, community involvement, building guest loyalty and repeat business</td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="guest"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr class="subtotal">
+    <td colspan="2" style="text-align:right;"><span id="guest-total">0</span> / <span id="guest-count">3</span> =</td>
+    <td style="text-align:center;" class="auto-avg" id="guest-avg">0.00</td>
+    <td></td>
+  </tr>
+</table>
+
+<!-- ======================================================= -->
+<!-- SECTION 5: GOAL ACCOMPLISHMENT -->
+<!-- ======================================================= -->
+<table class="grid" id="sec-goals">
+  <tr><td colspan="4" class="section-hdr">GOAL ACCOMPLISHMENT (from prior review)</td></tr>
+  <tr>
+    <th style="width:4%; text-align:center;">#</th>
+    <th class="col-desc" style="width:38%;">Goal</th>
+    <th class="score-hdr">Score</th>
+    <th class="score-hdr" style="width:30%;">Comments</th>
+  </tr>
+  <tr>
+    <td style="text-align:center; font-weight:bold;">1</td>
+    <td><input type="text" style="width:100%; border:none; font-size:8.5pt; font-family:inherit;"></td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="goals"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td style="text-align:center; font-weight:bold;">2</td>
+    <td><input type="text" style="width:100%; border:none; font-size:8.5pt; font-family:inherit;"></td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="goals"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td style="text-align:center; font-weight:bold;">3</td>
+    <td><input type="text" style="width:100%; border:none; font-size:8.5pt; font-family:inherit;"></td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="goals"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td style="text-align:center; font-weight:bold;">4</td>
+    <td><input type="text" style="width:100%; border:none; font-size:8.5pt; font-family:inherit;"></td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="goals"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr>
+    <td style="text-align:center; font-weight:bold;">5</td>
+    <td><input type="text" style="width:100%; border:none; font-size:8.5pt; font-family:inherit;"></td>
+    <td class="col-score"><input type="number" min="1" max="5" class="score" data-section="goals"></td>
+    <td class="col-comments"><textarea></textarea></td>
+  </tr>
+  <tr class="subtotal">
+    <td colspan="2" style="text-align:right;"><span id="goals-total">0</span> / <span id="goals-count">0</span> =</td>
+    <td style="text-align:center;" class="auto-avg" id="goals-avg">0.00</td>
+    <td></td>
+  </tr>
+</table>
+
+<!-- ======================================================= -->
+<!-- OVERALL SCORE SUMMARY -->
+<!-- ======================================================= -->
+<table class="summary">
+  <tr><td colspan="2" style="background:#003366; color:white; font-weight:bold; text-align:center; font-size:10pt; padding:4px;">OVERALL SCORE SUMMARY</td></tr>
+  <tr><td class="lbl">Prior Review Avg</td><td class="val"><input type="number" step="0.01" style="width:55px; text-align:center; font-size:9pt; border:1px solid #ccc; font-family:inherit;" id="prior-avg"></td></tr>
+  <tr><td class="lbl">Business Results</td><td class="val" id="sum-business">-</td></tr>
+  <tr><td class="lbl">Operational Execution</td><td class="val" id="sum-ops">-</td></tr>
+  <tr><td class="lbl">Leadership &amp; People</td><td class="val" id="sum-lead">-</td></tr>
+  <tr><td class="lbl">Guest Focus &amp; Sales</td><td class="val" id="sum-guest">-</td></tr>
+  <tr><td class="lbl">Goal Accomplishment</td><td class="val" id="sum-goals">-</td></tr>
+  <tr class="overall"><td class="lbl" style="font-size:10pt;">Current Review Overall</td><td class="val" style="font-size:12pt;" id="sum-overall">-</td></tr>
+</table>
+
+<!-- ======================================================= -->
+<!-- PERSONAL BALANCE -->
+<!-- ======================================================= -->
+<div class="page-break"></div>
+<table class="balance">
+  <tr>
+    <th style="width:38%;">Satisfactory / Outstanding</th>
+    <th class="mid" style="width:24%;">PERSONAL BALANCE</th>
+    <th style="width:38%;">Needs Improvement</th>
+  </tr>
+  <tr><td><input type="text"></td><td rowspan="6" style="font-size:7.5pt; text-align:center; color:#888; vertical-align:middle;">Identify specific behaviors and traits, not just category names. What does this person do well, and where do they need to grow?</td><td><input type="text"></td></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td></tr>
+  <tr><td><input type="text"></td><td><input type="text"></td></tr>
+</table>
+
+<!-- SUPERVISOR COMMENTS -->
+<p class="narr-label">SUPERVISOR COMMENTS</p>
+<textarea class="narr" style="min-height:120px;"></textarea>
+
+<!-- FORWARD GOALS -->
+<table class="goals-tbl">
+  <tr><td colspan="2" style="background:#003366; color:white; font-weight:bold; text-align:center; font-size:10pt; padding:4px;">GOALS &amp; MEASUREMENTS FOR NEXT REVIEW PERIOD</td></tr>
+  <tr><td class="gnum">1</td><td><input type="text"></td></tr>
+  <tr><td class="gnum">2</td><td><input type="text"></td></tr>
+  <tr><td class="gnum">3</td><td><input type="text"></td></tr>
+  <tr><td class="gnum">4</td><td><input type="text"></td></tr>
+  <tr><td class="gnum">5</td><td><input type="text"></td></tr>
+</table>
+
+<!-- EMPLOYEE COMMENTS -->
+<p class="narr-label">EMPLOYEE COMMENTS</p>
+<textarea class="narr" style="min-height:120px;"></textarea>
+
+<!-- SIGNATURES -->
+<table class="sig-table">
+  <tr>
+    <td style="width:10%;">Date:</td><td class="sig-line" style="width:18%;"></td>
+    <td style="width:4%;"></td>
+    <td style="width:22%;">General Manager Signature:</td><td class="sig-line" style="width:46%;"></td>
+  </tr>
+  <tr><td colspan="5" style="height:16px;"></td></tr>
+  <tr>
+    <td>Date:</td><td class="sig-line"></td>
+    <td></td>
+    <td>Reviewer Signature:</td><td class="sig-line"></td>
+  </tr>
+</table>
+
+<p class="no-print" style="text-align:center; margin-top:20px; font-size:9pt; color:#888;">
+  Version B (Detailed / Per-Item Comments) &mdash; Scores auto-calculate as you type. Print or Save as PDF from your browser.
+</p>
+
+<script>
+function recalc() {
+  var sections = ['business','ops','lead','guest','goals'];
+  var avgs = {};
+  sections.forEach(function(sec) {
+    var inputs = document.querySelectorAll('input.score[data-section="'+sec+'"]');
+    var total = 0, count = 0;
+    inputs.forEach(function(inp) {
+      var v = parseInt(inp.value);
+      if (v >= 1 && v <= 5) { total += v; count++; }
+    });
+    document.getElementById(sec+'-total').textContent = total;
+    document.getElementById(sec+'-count').textContent = count;
+    var avg = count > 0 ? (total / count).toFixed(2) : '0.00';
+    document.getElementById(sec+'-avg').textContent = avg;
+    avgs[sec] = count > 0 ? parseFloat(avg) : null;
+    document.getElementById('sum-'+sec).textContent = count > 0 ? avg : '-';
+  });
+  // Overall average
+  var oTotal = 0, oCount = 0;
+  sections.forEach(function(sec) {
+    if (avgs[sec] !== null) { oTotal += avgs[sec]; oCount++; }
+  });
+  document.getElementById('sum-overall').textContent = oCount > 0 ? (oTotal / oCount).toFixed(2) : '-';
+}
+document.querySelectorAll('input.score').forEach(function(inp) {
+  inp.addEventListener('input', recalc);
+});
+</script>
+
+</body>
+</html>
